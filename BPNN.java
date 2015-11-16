@@ -1,5 +1,12 @@
 import java.io.*;
 
+import java.io.FileWriter;  
+import java.io.IOException; 
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+
 public class BPNN 
 {
 	private double learningRate, momentum;
@@ -9,6 +16,8 @@ public class BPNN
 	private double c[] = new double[1]; //desired output value
 	private double s[] = new double[9];
 	private double e[] = new double[9]; 
+	
+	private static final String LINE_SEPARATOR = System.getProperty("line.separator"); 
 	
 	public BPNN() 
 	{
@@ -22,8 +31,13 @@ public class BPNN
 	{
 		
 		BPNN neuron = new BPNN();
+        
+	    FileWriter fw = new FileWriter("/home/lili/workspace/EECE592/BPNN/src/result.txt",true);  
+	    
+	    int rowIndex = 0;
 		
-		for(int i=0; i<1000000; i++) {
+		for(int i=0; i<1000000; i++) 
+		{
 			
 			double error[] = {0.0, 0.0, 0.0, 0.0};
 			double totalError =0.0;
@@ -66,10 +80,17 @@ public class BPNN
 			}
 			System.out.println(i + " " + totalError);
 			
+
 			if (totalError < 0.05)
 				break;
-			}
-		}
+		   
+		    fw.write(i+LINE_SEPARATOR+totalError);
+		    
+		   }
+		   fw.flush();
+		   fw.close();
+	
+	}
 		
 	   /**
 		 * Return a binary binarySigmoid of the input X
