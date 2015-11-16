@@ -33,10 +33,9 @@ public class BPNN
 		BPNN neuron = new BPNN();
         
 	    FileWriter fw = new FileWriter("/home/lili/workspace/EECE592/BPNN/src/result.txt",true);  
-	    
-	    int rowIndex = 0;
+	   
 		
-		for(int i=0; i<1000000; i++) 
+		for(int i=0; i<10000; i++) 
 		{
 			
 			double error[] = {0.0, 0.0, 0.0, 0.0};
@@ -102,18 +101,9 @@ public class BPNN
 			return 1/(1+Math.exp(-x));
 		}
 		
-		private double customSigmoid(double si) {
-			final double abound = -1.0;
-			final double bbound = 1.0;
-			double r = 0.0;
-			double x = -1.2 + 2.4 / (1.0 + Math.pow(Math.E, -si));
-			if (x <= abound)
-				r = -1.0;
-			if (x >= bbound)
-				r = 1.0;
-			if (x > abound && x <bbound)
-				r = x;
-			return (r);
+		public double bipolarSigmoid(double x)
+		{
+			return 2/(1+Math.exp(-x))-1;
 		}
 
 		private void weightInitialization()
