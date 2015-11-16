@@ -1,3 +1,5 @@
+//Binary Representation, learning rate 0.2, momentum 0.0
+
 import java.io.*;
 
 import java.io.FileWriter;  
