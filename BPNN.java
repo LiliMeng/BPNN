@@ -15,7 +15,7 @@ public class BPNN
 	private double w[][] = new double[9][9]; //weight
 	private double delta[][] = new double[9][9];
 	private double u[] = new double[9]; 
-	private double c[] = new double[1]; //desired output value
+	private double desiredOutput[] = new double[1]; //desired output value
 	private double s[] = new double[9];
 	private double e[] = new double[9]; 
 	
@@ -45,34 +45,34 @@ public class BPNN
 			
 			neuron.u[1] = 1;
 			neuron.u[2] = 1;
-			neuron.c[0] = 0;
+			neuron.desiredOutput[0] = 0;
 			neuron.output(neuron.u);
-			neuron.backpropagation(neuron.c);
-			error[0] = Math.pow(neuron.c[0]-neuron.u[8], 2); //error
+			neuron.backpropagation(neuron.desiredOutput);
+			error[0] = Math.pow(neuron.desiredOutput[0]-neuron.u[8], 2); //error
 			neuron.train();
 			
 			neuron.u[1] = 0;
 			neuron.u[2] = 0;
-			neuron.c[0] = 0;
+			neuron.desiredOutput[0] = 0;
 			neuron.output(neuron.u);// a forward and backward iteration
-			neuron.backpropagation(neuron.c);
-			error[1] = Math.pow(neuron.c[0] - neuron.u[8], 2);
+			neuron.backpropagation(neuron.desiredOutput);
+			error[1] = Math.pow(neuron.desiredOutput[0] - neuron.u[8], 2);
 			neuron.train(); //update weight
 			
 			neuron.u[1] = 1;
 			neuron.u[2] = 0;
-			neuron.c[0] = 1;
+			neuron.desiredOutput[0] = 1;
 			neuron.output(neuron.u);// a forward and backward iteration
-			neuron.backpropagation(neuron.c);
-			error[2] = Math.pow(neuron.c[0] - neuron.u[8], 2);
+			neuron.backpropagation(neuron.desiredOutput);
+			error[2] = Math.pow(neuron.desiredOutput[0] - neuron.u[8], 2);
 			neuron.train();
 				
 			neuron.u[1] = 0;
 			neuron.u[2] = 1;
-			neuron.c[0] = 1;
+			neuron.desiredOutput[0] = 1;
 			neuron.output(neuron.u);// a forward and backward iteration
-			neuron.backpropagation(neuron.c);
-			error[3] = Math.pow(neuron.c[0] - neuron.u[8], 2);
+			neuron.backpropagation(neuron.desiredOutput);
+			error[3] = Math.pow(neuron.desiredOutput[0] - neuron.u[8], 2);
 			neuron.train();
 
 			for (int j = 0; j < 4; j++) 
@@ -159,7 +159,7 @@ public class BPNN
 		
 		public void backpropagation(double c[])
 		{
-			e[8] = u[8]*(1-u[8]) * (c[0]-u[8]);
+			e[8] = u[8]*(1-u[8]) * (desiredOutput[0]-u[8]);
 			
 			for (int i = 4; i < 8; i++) 
 			{
